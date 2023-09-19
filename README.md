@@ -1,16 +1,9 @@
-# INDELL BOLG 🔥
- 
-
-## WELCOM
-
-💋`HELLOW`， MY BLOG
-
-## 多吃栗子🌰
-  **INDELL**
-
+ ## WELCOM 
+💋`HELLOW` 
 <br/>
 <div align="center">
-    <a href="https://github.com/TYB-LUOYUN">FOLLOW ME！</a>
+    <!-- <a href="https://github.com/TYB-LUOYUN">FOLLOW ME！</a> -->
+    INDELL
 </div>
 <br/>  
   
