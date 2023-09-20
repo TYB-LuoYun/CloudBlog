@@ -21,14 +21,11 @@ jobs:
           version: 7.3.0
 
       - name: Install Dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build Packages
-        run: pnpm run build
-
-      - name: Build Docs
-        run: pnpm run docs:build
-
+        run: npm run build 
+        
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2
         with:
