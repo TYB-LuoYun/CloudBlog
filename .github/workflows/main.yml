@@ -1,0 +1,36 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+          cache: npm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.3.0
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Packages
+        run: npm run build 
+        
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          repo: TYB-LuoYun/TYB-LuoYun.github.io
+          target_branch: master
+          build_dir: docs/.vuepress/dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
