@@ -7,20 +7,20 @@
       @pass="handlePass"
     />
 
-    <div v-if="siteLoaded && sitePasswordPass && simple">
+    <!-- <div v-if="siteLoaded && sitePasswordPass && simple"> -->
       <!-- 导航条 -->
       <!-- <Navbar @toggleMenus="toggleMobileMenus" />
       <SubNavbar v-if="seriesItems.length > 0" @toggleSeries="toggleSeries" /> -->
       <!-- <NavbarDropdownNemu /> -->
-      <div class="series-mask" @click="toggleSeries(false)" />
+      <!-- <div class="series-mask" @click="toggleSeries(false)" /> -->
       <!-- 左侧侧边栏 -->
-      <Series2 />
-      <slot />
+      <!-- <Series2 /> -->
+      <!-- <slot /> -->
       <!-- 右侧目录 -->
       <!-- <Catalog v-if="isShowCatalog" /> -->
-    </div>
+    <!-- </div> -->
 
-    <div v-if="siteLoaded && sitePasswordPass && !simple">
+    <div v-if="siteLoaded && sitePasswordPass  ">
       <!-- 导航条 -->
       <Navbar @toggleMenus="toggleMobileMenus" />
       <SubNavbar v-if="seriesItems.length > 0" @toggleSeries="toggleSeries" />

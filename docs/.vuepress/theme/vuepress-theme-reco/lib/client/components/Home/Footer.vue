@@ -5,18 +5,18 @@
         icon="ColorPalette"
         link="https://vuepress-theme-reco.recoluan.com"
         target="_blank"
-        :text="`vuepress-theme-reco@${version}`"
+        :text="`Version@${version}`"
       />
     </span>
 
-    <span v-show="frontmatter?.footer?.record">
+    <!-- <span v-show="frontmatter?.footer?.record">
       <Xicons
         icon="Security"
         :link="frontmatter?.footer?.recordLink"
         :text="frontmatter?.footer?.record"
         target="_blank"
       />
-    </span>
+    </span> -->
 
     <span>
       <Xicons :text="copyRight">

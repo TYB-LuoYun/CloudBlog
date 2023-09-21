@@ -1,5 +1,5 @@
 <template>
-  <Common class="timeline-wrapper">
+  <Common class="timeline-wrapper">  
     <ul class="timeline-content">
       <li
         v-for="(item, index) in timelineData"
@@ -32,11 +32,13 @@ const dataMap: {
   [key: string]: Array<any>
 } = {}
 
-posts.forEach(post => {
-  const [year, mounth, day] = formatISODate(post.frontmatter.date).split('-') || []
-
+posts.forEach(post => { 
+  console.log(post.frontmatter.date)
+  const [year, mounth, day] = formatISODate(post.frontmatter.date).split(/[\/-]/) || [] 
+  console.log(year,mounth,day); 
   if (!year || !mounth || !day) return
 
+  console.log(year);
   if (!dataMap[year]) {
     dataMap[year] = [{
       ...post,
@@ -45,11 +47,13 @@ posts.forEach(post => {
 
     return
   }
+  console.log(dataMap[year]);
 
   dataMap[year].push({
     ...post,
     date: `${mounth}-${day}`
   })
+  console.log(dataMap );
 });
 
 interface TimelineData {
