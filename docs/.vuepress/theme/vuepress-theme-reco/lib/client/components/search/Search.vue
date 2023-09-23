@@ -102,6 +102,7 @@
 import $ from 'jquery';  
 import {getTanslate} from './api/index' 
 const img11 = new URL('./images/engin/se_1.png',import.meta.url).href
+const localStorage = window.localStorage
 export default {
   name: 'Search',
   data(){
@@ -340,10 +341,10 @@ export default {
       }
       console.log("切换");
       this.currentEngin=item;
-      window.localStorage.setItem("engin",JSON.stringify(item));
+      localStorage.setItem("engin",JSON.stringify(item));
     },
     initEngin(){
-      let engin=window.localStorage.getItem("engin");
+      let engin=localStorage.getItem("engin");
       if(engin){
           this.currentEngin=JSON.parse(engin);
       }
@@ -368,17 +369,17 @@ export default {
        let b=JSON.parse(a);
        this.searchedHisory.unshift(b);
 
-       window.localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
+       localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
     },
     initSearchHistory(){
-      let history=window.localStorage.getItem("searchHistory");
+      let history=localStorage.getItem("searchHistory");
       if(history){
           this.searchedHisory=JSON.parse(history);
       }
     },
     removeHistory(item1){
         this.searchedHisory=this.searchedHisory.filter(item=>item!=item1);
-        window.localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
+        localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
     },  query(){
          
          var input=document.getElementById("wd");
