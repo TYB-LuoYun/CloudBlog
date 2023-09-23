@@ -430,6 +430,7 @@ export default {
 #wd{
   width:100%;
   padding-right: 30px;
+  padding-left:5px;
 }
  
 a {
