@@ -1,5 +1,5 @@
 <template>
-   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >   
+   <div class="all-page" :style="{'backgroundImage':'url(https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg)'}" >   
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
                  <Search ></Search>
