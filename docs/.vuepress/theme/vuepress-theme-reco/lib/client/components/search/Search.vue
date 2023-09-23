@@ -102,7 +102,7 @@
 import $ from 'jquery';  
 import {getTanslate} from './api/index' 
 const img11 = new URL('./images/engin/se_1.png',import.meta.url).href
-const localStorage = window.localStorage
+ 
 export default {
   name: 'Search',
   data(){
@@ -164,7 +164,8 @@ export default {
                 associate: 14
             },
             historyView: []
-        }
+        },
+        window:null
        
     }
   },
@@ -201,6 +202,7 @@ export default {
     })
   },
   mounted(){ 
+    this.window = window;
     this.query()
   },
   watch:{
@@ -341,10 +343,10 @@ export default {
       }
       console.log("切换");
       this.currentEngin=item;
-      localStorage.setItem("engin",JSON.stringify(item));
+      this.window.localStorage.setItem("engin",JSON.stringify(item));
     },
     initEngin(){
-      let engin=localStorage.getItem("engin");
+      let engin=this.window.localStorage.getItem("engin");
       if(engin){
           this.currentEngin=JSON.parse(engin);
       }
@@ -369,17 +371,17 @@ export default {
        let b=JSON.parse(a);
        this.searchedHisory.unshift(b);
 
-       localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
+       this.window.localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
     },
     initSearchHistory(){
-      let history=localStorage.getItem("searchHistory");
+      let history=this.window.localStorage.getItem("searchHistory");
       if(history){
           this.searchedHisory=JSON.parse(history);
       }
     },
     removeHistory(item1){
         this.searchedHisory=this.searchedHisory.filter(item=>item!=item1);
-        localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
+        this.window.localStorage.setItem("searchHistory",JSON.stringify(this.searchedHisory));
     },  query(){
          
          var input=document.getElementById("wd");
