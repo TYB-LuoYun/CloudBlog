@@ -10,5 +10,5 @@ export default defineClientConfig({
     setup() {
         applyClientSetup();
     },
-    layouts,
+    layouts 
 });

@@ -1,7 +1,9 @@
 <template>
    <div class="all-page"  >   
          <div style="width:30%;margin:auto;margin-top: 20vh;">
-             <Search></Search>
+            <ClientOnly>
+                 <Search ></Search>
+            </ClientOnly>
          </div>
 
          <!-- <div class="glass foot"></div> -->
@@ -12,6 +14,12 @@
 import Search from "./Search.vue";
 export default {
     components: { Search  },
+    data(){
+      return {
+         dynamicComponent: null
+      }
+    },
+     
 }
 </script>
 <style  >
