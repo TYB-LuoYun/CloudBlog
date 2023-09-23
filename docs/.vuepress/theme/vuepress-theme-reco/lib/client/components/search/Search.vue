@@ -102,7 +102,7 @@
 // import $ from 'jquery';  
 import {getTanslate} from './api/index' 
 const img11 = new URL('./images/engin/se_1.png',import.meta.url).href 
-const imgBg = new URL('./images/bg.jpg',import.meta.url).href 
+
 export default {
   name: 'Search',
   data(){
@@ -338,7 +338,7 @@ export default {
       }
     },
     blur(){//输入框离开焦点
-        // this.smartTipShow=false;
+        this.smartTipShow=false;
     },
     focus(){
         this.smartTipShow=true;
