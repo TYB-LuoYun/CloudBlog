@@ -1,8 +1,9 @@
 <template>
-  <div class="theme-container">
-    <Common>
-      <Home v-if="frontmatter.home === true" />
-
+  <div class="theme-container"  >  
+     <MyHome v-if ="frontmatter.home === true &&  route.hash != '#/home'" ></MyHome>
+    
+    <Common  v-else> 
+      <Home  v-if="route.hash == '#/home'" /> 
       <Transition
         v-else
         name="fade-slide-y"
@@ -14,7 +15,8 @@
           :key="page.path"
         />
       </Transition>
-    </Common>
+    </Common> 
+   
   </div>
 </template>
 
@@ -26,6 +28,7 @@ import { usePageFrontmatter, usePageData } from '@vuepress/client'
 import Home from '../components/Home/index.vue'
 import Page from '../components/Page/index.vue'
 import Common from '../components/Common/index.vue'
+import MyHome from "../components/search/MyHome.vue"
 import { useScrollPromise, useMagicCard } from '../composables'
 
 const page = usePageData()
