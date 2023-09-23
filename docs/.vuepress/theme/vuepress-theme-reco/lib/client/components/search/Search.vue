@@ -187,7 +187,11 @@ export default {
     }
   },
   created(){
-    this.initEngin();
+   
+  },
+  mounted(){ 
+    this.window = window;
+     this.initEngin();
     this.initSearchHistory(); 
 
     $(document).bind('click',(e)=>{
@@ -200,9 +204,6 @@ export default {
       }
       console.log(e.target.parentNode);
     })
-  },
-  mounted(){ 
-    this.window = window;
     this.query()
   },
   watch:{
