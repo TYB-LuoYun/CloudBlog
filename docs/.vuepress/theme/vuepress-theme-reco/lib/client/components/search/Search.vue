@@ -99,10 +99,9 @@
 
 <script>
 
-import $ from 'jquery';  
+// import $ from 'jquery';  
 import {getTanslate} from './api/index' 
-const img11 = new URL('./images/engin/se_1.png',import.meta.url).href
- 
+const img11 = new URL('./images/engin/se_1.png',import.meta.url).href 
 export default {
   name: 'Search',
   data(){
@@ -191,19 +190,7 @@ export default {
   },
   mounted(){ 
     this.window = window;
-     this.initEngin();
-    this.initSearchHistory(); 
-
-    $(document).bind('click',(e)=>{
-      var e=window.event||e;
-      if("INPUT"==e.target.tagName||"associate_ul"==e.target.parentNode.className||"associate_ul"==e.target.parentNode.parentNode.className){
-           //说面鼠标在
-           this.smartTipShow=true;
-      }else{
-           this.smartTipShow=false;
-      }
-      console.log(e.target.parentNode);
-    })
+    
     this.query()
   },
   watch:{
@@ -257,7 +244,7 @@ export default {
     changeAssociateData(){
       console.log("联想");
          let times=setInterval( ()=> {
-                let datas=$("#dataFromBd").val();
+                let datas=document.getElementById("dataFromBd").value;
                 console.log("结果",datas);
                 if(datas!=''){
                   let newData=datas.split(',');
