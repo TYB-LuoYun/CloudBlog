@@ -1,5 +1,5 @@
 <template>
-   <div class="all-page"  >   
+   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >   
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
                  <Search ></Search>
@@ -12,11 +12,13 @@
 
 <script>
 import Search from "./Search.vue";
+const imgBg = new URL('./images/bg.jpg',import.meta.url).href 
 export default {
     components: { Search  },
     data(){
       return {
-         dynamicComponent: null
+         dynamicComponent: null,
+         bg:imgBg
       }
     },
      
@@ -34,7 +36,7 @@ export default {
   height:100%;
   z-index:-999;
   /* background-color: red; */
-  background-image:url(http://img.netbian.com/file/2023/0922/193127wXFyM.jpg);
+  
         	background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
