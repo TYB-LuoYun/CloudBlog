@@ -1,7 +1,8 @@
 <template>
-  <div class="theme-container"  >  
-     <MyHome v-if ="frontmatter.home === true &&  route.hash != '#/home'" ></MyHome>
-    
+  <div class="theme-container"  > 
+     <ClientOnly  v-if ="frontmatter.home === true &&  route.hash != '#/home'" >
+       <MyHome></MyHome>
+     </ClientOnly>
     <Common  v-else> 
       <Home  v-if="route.hash == '#/home'" /> 
       <Transition

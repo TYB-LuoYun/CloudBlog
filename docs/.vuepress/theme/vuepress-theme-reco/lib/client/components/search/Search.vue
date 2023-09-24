@@ -8,7 +8,7 @@
       <div id="se" class="searchInput">
          <div class="row" style="position:relative">
            <input id="wd" v-model="inputValue" 
-           :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}" @blur="blur()" @focus="focus()" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
+           :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}" @blur="blur()" @focus="focus()" @keydown="keydown" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
            <i id="soso" v-if="searchBgMode !='glass-effect-se-simple'" style="position:relative;margin-left:-25px;cursor:default;color:#777;z-index: 999;" @click="search()" class="iconfont icon-sousuo "></i>
         </div>
         <div class="row" :style="{
@@ -220,6 +220,11 @@ export default {
             this.changeAssociateData();
          }
         },deep:true,immediate:true
+    },
+    smartTipShow:{
+      handler(newval,oldval){
+         this.$emit("focus",newval)
+      },deep:true,immediate:false
     }
   },
   methods:{
@@ -300,6 +305,9 @@ export default {
         this.searchBgMode ="trueSe"
         this.placeholder="";
     },
+    keydown(){
+          this.searchBgMode ="trueSe"
+    },
     mouseleave(){
       // 离开并且非聚焦状态
         if(this.smartTipShow == false){
@@ -315,7 +323,7 @@ export default {
             this.searchBgMode ="glass-effect-se"
           }else  if((this.searchedHisory == null ||this.searchedHisory.length<=0 )&& (this.smartTipItems ==null|| this.smartTipItems.length<=0)){
             this.searchBgMode ="glass-effect-se"
-          }
+          } 
           
         } 
         
@@ -474,6 +482,7 @@ export default {
 }
 .glass-effect-se { 
   color:rgba(255, 255, 255, 0.2) !important;
+ 
   // position: absolute;
   // left:50%; 
   // width:50% !important;
@@ -484,7 +493,7 @@ export default {
   backdrop-filter: blur(10px); /* 使用 backdrop-filter 创建磨砂效果，可以根据需要调整模糊程度 */
   /* 添加其他样式，如边框、内边距等 */
 }
-.so{
+.so{ 
     /* height: 36px; */ 
     height:40px;
     outline: none;

@@ -1,13 +1,18 @@
 <template>
-   <div class="all-page" :style="{'backgroundImage':'url(https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg)'}" >   
+   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >   
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
-                 <Search ></Search>
+                 <Search @focus="focus"></Search>
             </ClientOnly>
 
-             <h1  style="text-align:center;color:white;margin:auto;font-size:40px;mix-blend-mode:overlay; ">{{simpleTime}}</h1>
-                  <p class="mix" style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px;mix-blend-mode:overlay;">{{fullTime}}</p>
-            <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
+             <div v-if="!inputFocus">
+                <h1 @click="changeBg" class="timez" style="cursor:pointer;text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
+                <p class="mix" style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px;mix-blend-mode:overlay;">{{fullTime}}</p>
+             </div>
+             <div style="margin-top:10%">
+                <p style="text-align:center;color:white;margin:auto;font-size14px;mix-blend-mode:overlay; ">{{word}} </p>
+             </div>
+                        <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
                <div class="left">
                   <h1 style="text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
                   <p style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px">{{fullTime}}</p>
@@ -17,30 +22,83 @@
                </div>
             </div> -->
          </div>
-<div class="glass-effect foot" > 
+<div class="glass-effect foot" style="font-size:13px;color:rgba(255,255,255,.6);padding:0 20px;"> 
   <!-- 内容放在这里 -->
+  <span v-if="year" style="">© {{year}} by Unglory |</span>    <a  target="_blank"  href="/#/home">Blog</a>
 </div>
          <!-- <div class="glass foot"></div> -->
    </div>
 </template>
 
 <script>
-import Search from "./Search.vue";
-const imgBg = new URL('./images/bg.jpg',import.meta.url).href 
+import Search from "./Search.vue"; 
 export default {
     components: { Search  },
     data(){
       return {
          dynamicComponent: null,
-         bg:imgBg,
+         bg:'https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg',
          simpleTime:null,
-         fullTime:null
+         fullTime:null,
+         inputFocus : false,
+         year:null,
+         bgs:[
+             'https://api.cyrilstudio.top/bing/image.php',
+            'https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg',
+            'https://pic.netbian.com/uploads/allimg/230922/165917-1695373157e757.jpg',
+            'https://pic.netbian.com/uploads/allimg/230829/145009-1693291809b5f4.jpg',
+            'https://pic.netbian.com/uploads/allimg/210423/224716-1619189236e4d9.jpg',
+            'https://pic.netbian.com/uploads/allimg/230615/004755-1686761275c2e9.jpg',
+           
+            'https://t.mwm.moe/pc/',
+            'https://t.mwm.moe/fj/'
+         ],
+         word:'衰兰送客咸阳道，天若有情天亦老。',
+         words:[
+            '衰兰送客咸阳道，天若有情天亦老。',
+            '花开，痕迹依然在。',
+            '锦瑟年华，肆意挥洒。',
+            '星辰之际，我在等你。',
+            '窗外的雨，是我最深情的告别。',
+            '深夜，灯火阑珊处，孤影漫步。',
+            '深夜的思绪，总是最让人感伤。',
+            '时光如水，岁月如歌，青春如梦。',
+            '海市蜃楼谁家瑶台?万顷江山缭绕。' 
+         ]
+      }
+    },
+    created(){
+      if(window.localStorage.getItem("bg")){
+           this.bg = window.localStorage.getItem("bg");
       }
     },
     mounted(){
       this.initTime();
     },
     methods:{
+      changeBg(){
+         var index = this.bgs.indexOf(this.bg);
+         if(index < this.bgs.length-1){
+             index = index +1
+         }else{
+             index = 0
+         }
+         this.bg = this.bgs[index]
+         window.localStorage.setItem("bg",this.bg);
+         this.changeWord();
+      },
+      changeWord(){
+         var index = this.words.indexOf(this.word);
+         if(index < this.words.length-1){
+             index = index +1
+         }else{
+             index = 0
+         }
+         this.word = this.words[index]
+      },
+      focus(val){
+         this.inputFocus = val
+      },
       initTime() {
       let timer1 = setTimeout(() => {
         setInterval(() => {
@@ -116,6 +174,7 @@ export default {
             hours = h;
             }
 
+            this.year = y;
             var simpleTime = hours + ":" + minutes + ":" + seconds;
             var fullTime = y + "年" + mon + "月" + d + "日" + " " + "星期" + week;
             this.simpleTime = simpleTime;
@@ -128,14 +187,19 @@ export default {
      
 }
 </script>
-<style  >
+<style  lang="scss">
  html,body{
   width:100%;
   min-height:100%;
   /* background-color:#EEF2F5;  */
 }
+
+.timez{
+   mix-blend-mode:overlay;  
+}
  
 .all-page{
+   background-color:rgba(30,30,30,1);
   position: fixed;   
   width:100%;
   height:100%;
@@ -148,7 +212,7 @@ export default {
             background-size:cover;
 }
 .foot{
-   width: 800px;
+   // width: 800px;
    height:25px;
    position: absolute;
    bottom: 5px;
@@ -156,7 +220,14 @@ export default {
    -webkit-transform: translate(-50%, 0);
     -ms-transform: translate(-50%, 0);
     transform: translate(-50%, 0)
+
+    
 }
+
+.foot a{
+      color: rgba(255,255,255,.6);
+}
+
 
 .glass-effect {
  
