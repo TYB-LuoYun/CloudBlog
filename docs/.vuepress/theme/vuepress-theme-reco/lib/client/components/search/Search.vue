@@ -7,10 +7,9 @@
       </div>
       <div id="se" class="searchInput">
          <div class="row" style="position:relative">
-           <input id="wd" v-model="inputValue"
-           :style="{ 'background-color': color.searchBg, color: color.font }" 
-           class="so col-12 col-md-11 m-auto" @blur="blur()" @focus="focus()" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()"  type="text"  autocomplete="off" >
-           <i id="soso" style="position:absolute;right:20px;top:10px;cursor:default;color:#777" @click="search()" class="iconfont icon-sousuo "></i>
+           <input id="wd" v-model="inputValue" 
+           :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}" @blur="blur()" @focus="focus()" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
+           <i id="soso" v-if="searchBgMode !='glass-effect-se-simple'" style="position:relative;margin-left:-25px;cursor:default;color:#777;z-index: 999;" @click="search()" class="iconfont icon-sousuo "></i>
         </div>
         <div class="row" :style="{
           'font-size': fontSize.associate + 'px',
@@ -107,6 +106,7 @@ export default {
   name: 'Search',
   data(){
     return {
+      placeholder:"Search",
        associateKey:"",
        associateData:[],
        inputValue:"",
@@ -139,6 +139,7 @@ export default {
       searchingHistory:[],
       // 翻译
       translate:'',
+      searchBgMode:"glass-effect-se-simple",
       state : {
             randomBasicWallpaperUrl: "http://anets.top:8082/wallpaper.action?offset=",
             passportBasicUrl: "http://passport.anets.top",
@@ -163,7 +164,8 @@ export default {
             fontSize: {
                 associate: 14
             },
-            historyView: []
+            historyView: [],
+            
         } 
        
     }
@@ -294,6 +296,29 @@ export default {
         
       }
     },
+    mouseenter(){ 
+        this.searchBgMode ="trueSe"
+        this.placeholder="";
+    },
+    mouseleave(){
+      // 离开并且非聚焦状态
+        if(this.smartTipShow == false){
+          if (this.inputValue == null || this.inputValue == ''){
+              this.placeholder="Search";
+               this.searchBgMode ="glass-effect-se-simple"
+          }
+         
+        }else{
+          if(this.inputValue == null || this.inputValue == ''){
+            this.searchBgMode ="glass-effect-se"
+          }else  if((this.searchedHisory == null ||this.searchedHisory.length<=0 )&& (this.smartTipItems ==null|| this.smartTipItems.length<=0)){
+            this.searchBgMode ="glass-effect-se"
+          }
+          
+        } 
+        
+         
+    },
     downPage(){
           console.log("颜色",  this.currentIndex + this.color.associateLiHover );
           this.isPage=true;
@@ -339,6 +364,7 @@ export default {
     },
     blur(){//输入框离开焦点
         this.smartTipShow=false;
+        this.mouseleave()
     },
     focus(){
         this.smartTipShow=true;
@@ -409,7 +435,69 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// .trueSe{
+//    color: #ee1289;
+//    background-color: rgba(255,255,255,0.8);
+//     position: relative;
+// }
+ 
+.glass-effect-se-simple::placeholder {
+  color: white; /* 将 placeholder 文本颜色设置为白色 */
+}
+.glass-effect-se:hover::placeholder {
+  // color: rgba(0,0,0,0); /* 将 placeholder 文本颜色设置为白色 */
+}
+.trueSe{
+   color: #ee1289 !important;
+   background-color: rgba(255,255,255,0.8);
+  position: relative; 
+    text-align: left;
+  //  width:100% !important;
+  //  margin-left:0%;
+  //  border-radius: 3px !important; /* 可以根据需要设置圆角 */ 
+}
+.glass-effect-se-simple{
+  color:rgba(255, 255, 255, 0.2) !important;
+  // position: absolute;
+  // left:50%;  
+  text-align: center;
+  width:50% !important;
+  margin-left:25%;
+  background: rgba(255, 255, 255, 0.2); /* 背景颜色设置为半透明 */
+  border-radius: 50px !important; /* 可以根据需要设置圆角 */
+  backdrop-filter: blur(10px); /* 使用 backdrop-filter 创建磨砂效果，可以根据需要调整模糊程度 */
+  /* 添加其他样式，如边框、内边距等 */
+}
+.glass-effect-se { 
+  color:rgba(255, 255, 255, 0.2) !important;
+  // position: absolute;
+  // left:50%; 
+  // width:50% !important;
+  // margin-left:25%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.2); /* 背景颜色设置为半透明 */
+  // border-radius: 50px !important; /* 可以根据需要设置圆角 */
+  backdrop-filter: blur(10px); /* 使用 backdrop-filter 创建磨砂效果，可以根据需要调整模糊程度 */
+  /* 添加其他样式，如边框、内边距等 */
+}
+.so{
+    /* height: 36px; */ 
+    height:40px;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    transition: all 0.5s;
+}
 
+
+.glass-effect {
+ 
+  background: rgba(255, 255, 255, 0.2); /* 背景颜色设置为半透明 */
+  border-radius: 1px; /* 可以根据需要设置圆角 */
+  backdrop-filter: blur(10px); /* 使用 backdrop-filter 创建磨砂效果，可以根据需要调整模糊程度 */
+  /* 添加其他样式，如边框、内边距等 */
+}
 #search{
     /* background-color: yellow;   */
     /* transition: all 0.5s;   */
@@ -445,14 +533,7 @@ a:hover{
        right:0px !important;
      }
  }
-.so{
-    /* height: 36px; */ 
-    height:40px;
-    outline: none;
-    border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
-    border-radius: 3px;
-}
+
 .so:hover{
      box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.1);
 }
