@@ -306,6 +306,8 @@ export default {
           if (this.inputValue == null || this.inputValue == ''){
               this.placeholder="Search";
                this.searchBgMode ="glass-effect-se-simple"
+          }else{
+            this.searchBgMode ="glass-effect-se"
           }
          
         }else{
@@ -443,6 +445,7 @@ export default {
  
 .glass-effect-se-simple::placeholder {
   color: white; /* 将 placeholder 文本颜色设置为白色 */
+   text-indent: 25px;
 }
 .glass-effect-se:hover::placeholder {
   // color: rgba(0,0,0,0); /* 将 placeholder 文本颜色设置为白色 */
@@ -452,6 +455,7 @@ export default {
    background-color: rgba(255,255,255,0.8);
   position: relative; 
     text-align: left;
+   
   //  width:100% !important;
   //  margin-left:0%;
   //  border-radius: 3px !important; /* 可以根据需要设置圆角 */ 
@@ -517,9 +521,11 @@ export default {
 
 #wd{
   width:100%;
-  padding-right: 30px;
-  padding-left:5px;
+  padding-right:30px;
+  padding-left:5px; 
 }
+
+ 
  
 a {
   color: #007BFF !important;

@@ -5,8 +5,8 @@
                  <Search ></Search>
             </ClientOnly>
 
-             <h1 style="text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
-                  <p style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px">{{fullTime}}</p>
+             <h1  style="text-align:center;color:white;margin:auto;font-size:40px;mix-blend-mode:overlay; ">{{simpleTime}}</h1>
+                  <p class="mix" style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px;mix-blend-mode:overlay;">{{fullTime}}</p>
             <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
                <div class="left">
                   <h1 style="text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
@@ -134,6 +134,7 @@ export default {
   min-height:100%;
   /* background-color:#EEF2F5;  */
 }
+ 
 .all-page{
   position: fixed;   
   width:100%;
