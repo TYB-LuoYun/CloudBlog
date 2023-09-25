@@ -22,6 +22,12 @@ categories:
 
  ( A***/docker-compose.yml 为全路径的编排文件地址,尽可能在docker-compose.yml这一级目录操作.)
 
+## docker
+#### 进入容器
+docker exec -it 容器ID/容器名 /bin/bash
+或者
+docker exec -it 容器ID/容器名 bash
+
 ### yml文件编写
 #### 将外部的docker-compose文件整理在一块
 ```

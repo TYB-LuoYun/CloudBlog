@@ -43,13 +43,16 @@ export default {
          inputFocus : false,
          year:null,
          bgs:[
-             'https://api.cyrilstudio.top/bing/image.php',
-            'https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg',
-            'https://pic.netbian.com/uploads/allimg/230922/165917-1695373157e757.jpg',
+             'https://api.cyrilstudio.top/bing/image.php', 
             'https://pic.netbian.com/uploads/allimg/230829/145009-1693291809b5f4.jpg',
-            'https://pic.netbian.com/uploads/allimg/210423/224716-1619189236e4d9.jpg',
-            'https://pic.netbian.com/uploads/allimg/230615/004755-1686761275c2e9.jpg',
-           
+            'https://pic.netbian.com/uploads/allimg/210423/224716-1619189236e4d9.jpg', 
+            'https://api.likepoems.com/img/bing/',
+            'https://imgapi.cn/api.php?fl=meizi&gs=images',
+            'https://imgapi.cn/api.php?fl=fengjing&gs=images',
+            'https://api.likepoems.com/ana/dujitang/',
+            'https://api.btstu.cn/sjbz/api.php?lx=meizi&format=images',
+            'https://api.btstu.cn/sjbz/api.php?lx=fengjing&format=images',
+            'https://unsplash.it/1600/900?random', 
             'https://t.mwm.moe/pc/',
             'https://t.mwm.moe/fj/'
          ],
