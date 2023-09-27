@@ -6,11 +6,20 @@
             </ClientOnly>
 
              <div v-if="!inputFocus">
-                <h1 @click="changeBg" class="timez" style="cursor:pointer;text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
-                <p class="mix" style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px;mix-blend-mode:overlay;">{{fullTime}}</p>
+                <div style="position: relative; ">
+                  <h1 @click="changeBg"  style="cursor:pointer;text-align:center;color:white;margin:auto;font-size:40px;mix-blend-mode:overlay">{{simpleTime}}</h1> 
+                  <!-- <h1 @click="changeBg" class="move-50"  style="position:absolute;top:0;left:50%;
+                  cursor:pointer;text-align:center;color:white;margin:auto;font-size:40px;opacity: 0.15;mix-blend-mode:exclusion;">{{simpleTime}}</h1>  -->
+                </div>
+
+            <div style="position: relative;margin-top:10px; ">
+               <p class="mix" style="text-align:center;color:white;margin:auto;font-size:20px;mix-blend-mode:overlay;">{{fullTime}}</p>
+               <!-- <p class="mix move-50" style="position:absolute;top:0;left:50%;text-align:center;color:white;margin:auto; font-size:20px;mix-blend-mode:exclusion;opacity: 0.15;">{{fullTime}}</p> -->
+            </div>
              </div>
-             <div style="margin-top:10%">
-                <p style="text-align:center;color:white;margin:auto;font-size14px;mix-blend-mode:overlay; ">{{word}} </p>
+             <div style="position: relative;margin-top:10%">
+                <p style="text-align:center;color:white;margin:auto;font-size:16px;mix-blend-mode:overlay; ">{{word}} </p>
+                <!-- <p class="move-50" style="position:absolute;top:0;left:50%;text-align:center;color:white;margin:auto;font-size:16px;mix-blend-mode:exclusion;opacity: 0.15;">{{word}} </p> -->
              </div>
                         <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
                <div class="left">
@@ -44,7 +53,7 @@ export default {
          year:null,
          bgs:[
             'https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg',
-            'https://api.cyrilstudio.top/bing/image.php',  
+            // 'https://api.cyrilstudio.top/bing/image.php',  
             'https://pic.netbian.com/uploads/allimg/210423/224716-1619189236e4d9.jpg', 
             'https://api.likepoems.com/img/bing/',
             'https://imgapi.cn/api.php?fl=meizi&gs=images',
@@ -196,9 +205,9 @@ export default {
   /* background-color:#EEF2F5;  */
 }
 
-.timez{
-   mix-blend-mode:overlay;  
-}
+ 
+ 
+ 
  
 .all-page{
    background-color:rgba(30,30,30,1);
@@ -225,7 +234,11 @@ export default {
 
     
 }
-
+.move-50{
+   -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    transform: translate(-50%, 0)
+}
 .foot a{
       color: rgba(255,255,255,.6);
 }
