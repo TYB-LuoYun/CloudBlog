@@ -6,11 +6,76 @@ tags:
 categories:
  - docker
 ---
+# docker简记
+https://github.com/TYB-LuoYun/docker-componse
+## docker 安装
+
+1. 卸载旧版
+
+   ```
+   yum remove docker-ce \
+          docker-ce-client \
+          docker-client-latest \
+          docker-common \
+          docker-latest \
+          docker-latest-logrotate \
+          docker-logrotate \
+          docker-engine
+   ```
+
+2. 安装一组工具
+
+   ```
+   yum install -y yum-utils \
+       device-mapper-persistent-data \
+       lvm2
+   ```
+
+3. 设置 yum 仓库地址
+
+   ```
+    yum-config-manager \
+      --add-repo \
+      https://download.docker.com/linux/centos/docker-ce.repo
+    yum-config-manager \
+      --add-repo \
+      http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+   ```
+
+4. 更新 yum 缓存
+
+   ```
+   yum makecache fast
+   ```
+
+5. 安装新版 docker
+
+   ```
+    yum install docker-ce docker-ce-cli containerd.io
+   ```
+
+6. 启动, 测试
+
+   ```
+   systemctl start docker
+   ```
+
+7. 设置 docker 开机启动
+
+   ```
+   systemctl enable docker
+   ```
+
+8. 运行 hello-world 镜像，验证 docker
+
+   ```
+   docker run hello-world
+   ```
 ## docker compose
 ### 安装 
 1. 下载
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
     版本号参考 https://github.com/docker/compose/tags
 > 如果是手动下载 ，去 https://github.com/docker/compose/tags 下

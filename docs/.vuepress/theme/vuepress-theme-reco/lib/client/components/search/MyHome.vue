@@ -1,5 +1,5 @@
 <template>
-   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >   
+   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >  
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
                  <Search @focus="focus"></Search>
@@ -21,7 +21,7 @@
                 <p style="text-align:center;color:white;margin:auto;font-size:16px;mix-blend-mode:overlay; ">{{word}} </p>
                 <!-- <p class="move-50" style="position:absolute;top:0;left:50%;text-align:center;color:white;margin:auto;font-size:16px;mix-blend-mode:exclusion;opacity: 0.15;">{{word}} </p> -->
              </div>
-                        <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
+            <!-- <div style="display:flex;flex-direction:row;justify-content:space-between">
                <div class="left">
                   <h1 style="text-align:center;color:white;margin:auto;font-size:40px">{{simpleTime}}</h1>
                   <p style="text-align:center;color:white;margin:auto;margin-top:10px;font-size:20px">{{fullTime}}</p>
@@ -31,16 +31,18 @@
                </div>
             </div> -->
          </div>
-<div class="glass-effect foot" style="font-size:13px;color:rgba(255,255,255,.6);padding:0 20px;"> 
-  <!-- 内容放在这里 -->
-  <span v-if="year" style="">© {{year}} by Unglory |</span>    <a  target="_blank"  href="/#/home">Blog</a>
-</div>
+      <div class="glass-effect foot" style="font-size:13px;color:rgba(255,255,255,.6);padding:0 20px;"> 
+      <!-- 内容放在这里 -->
+      <span v-if="year" style="">© {{year}} by Unglory |</span>    <a  target="_blank"  href="/#/home">Blog</a>
+      </div>
          <!-- <div class="glass foot"></div> -->
    </div>
 </template>
 
 <script>
 import Search from "./Search.vue"; 
+import {uploaderGit} from "./api/index"
+import axios from 'axios'
 export default {
     components: { Search  },
     data(){
@@ -78,15 +80,34 @@ export default {
          ]
       }
     },
+    
     created(){
+      // this.uploaderGit();
       if(window.localStorage.getItem("bg")){
            this.bg = window.localStorage.getItem("bg");
       }
     },
     mounted(){
-      this.initTime();
+      this.initTime(); 
+      // const image = new Image();
+      // image.crossOrigin = "anonymous"; // 允许跨域请求
+      // // 设置图片的src并触发加载
+      // image.src = "https://api.likepoems.com/img/bing/";
+      // image.onload = () => {  
+      // }; 
+
+      
+      
+      
     },
     methods:{
+      convertImageToDataURL() {
+          
+      },
+      uploaderGit(){
+         var base64 ="";
+         uploaderGit(base64)
+      },
       changeBg(){
          var index = this.bgs.indexOf(this.bg);
          if(index < this.bgs.length-1){

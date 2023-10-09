@@ -62,5 +62,24 @@ let getUrl=(wid)=>{
 let getTanslate=(query)=>{
     return axios.get("translate.action?query="+query);
 }
-export {getClassifyUrlRank,getTanslate,getUrl,getTree,getChildren,getSelfAndChildren,getRank,getTread,getPraise,getViews,getWallpapers,getWallpaper,getWallpapersSell,getWallpapersBuy,getWallpaperByPassword}
+
+
+const repo = 'TYB-LuoYun/ImgBed' // 填你的仓库 repo
+const cutToken = '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' // 填你的 Token
+const tailToken = ''
+const uploaderGit = async (content) => {
+  const d = new Date()
+  const path = `${d.getFullYear()}/${d.getMonth()}/a.png`
+  const imageUrl = 'https://api.github.com/repos/' + repo + '/contents/' + path
+  const body = { branch: 'main', message: 'upload', content, path }
+  const headers = {
+    Authorization: `token ${cutToken}${tailToken}`,
+    'Content-Type': 'application/json; charset=utf-8',
+  }
+  const res = await axios.put(imageUrl, body, { headers })
+  // 直接取得返回的图片地址
+  return res?.content?.download_url
+  // return `https://fastly.jsdelivr.net/gh/${repo}@main/${path}`
+} 
+export {uploaderGit,getClassifyUrlRank,getTanslate,getUrl,getTree,getChildren,getSelfAndChildren,getRank,getTread,getPraise,getViews,getWallpapers,getWallpaper,getWallpapersSell,getWallpapersBuy,getWallpaperByPassword}
 
