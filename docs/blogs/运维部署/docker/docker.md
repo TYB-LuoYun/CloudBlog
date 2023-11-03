@@ -4,7 +4,7 @@ date: 2023/09/21
 tags:
  - docker
 categories:
- - docker
+ - 运维部署
 ---
 # docker简记
 https://github.com/TYB-LuoYun/docker-componse
