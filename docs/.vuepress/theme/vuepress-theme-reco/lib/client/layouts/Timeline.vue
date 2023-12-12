@@ -34,6 +34,9 @@ const dataMap: {
 
 posts.forEach(post => { 
   console.log(post.frontmatter.date)
+  if(!post.frontmatter.date){
+    return
+  }
   const [year, mounth, day] = formatISODate(post.frontmatter.date).split(/[\/-]/) || [] 
   console.log(year,mounth,day); 
   if (!year || !mounth || !day) return
