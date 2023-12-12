@@ -1,11 +1,12 @@
 ---
 title: MQ
-date: 2023/12/12
+date: 2023/11/21
 tags:
  - 技术栈
 categories:
  - 技术栈
 ---
+
 # MQ
 
 ## 消息队列模式分类
