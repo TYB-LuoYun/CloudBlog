@@ -7,8 +7,11 @@
       </div>
       <div id="se" class="searchInput">
          <div class="row" style="position:relative">
+           <div style="position:absolute;top:0;margin-top:-68px;width:100%; color:white;text-align:center;">
+             <h1 class="transitions" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1>
+           </div>
            <input id="wd" v-model="inputValue" 
-           :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}" @blur="blur()" @focus="focus()" @keydown="keydown" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
+           :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}"   @focus="focus()" @keydown="keydown" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
            <i id="soso" v-if="searchBgMode !='glass-effect-se-simple'" style="position:relative;margin-left:-25px;cursor:default;color:#777;z-index: 999;" @click="search()" class="iconfont icon-sousuo "></i>
         </div>
         <div class="row" :style="{
@@ -103,9 +106,11 @@ import {getTanslate} from './api/index'
 const img11 = new URL('./images/engin/se_1.png',import.meta.url).href 
 
 export default {
-  name: 'Search',
+  name: 'Search', 
   data(){
     return {
+      isLeave:false,
+      opacityTime:0,
       placeholder:"Search",
        associateKey:"",
        associateData:[],
@@ -171,6 +176,12 @@ export default {
        
     }
   },
+  props:{
+    time:{
+      type: String,
+      default:""
+    }
+  },
   computed:{
     color:{
       get(){
@@ -186,6 +197,11 @@ export default {
       get(){
         return this.searchingHistory.concat(this.associateData);
       }
+    },
+    time:{
+      get(){
+        return this.$props.time;
+      }
     }
   },
   created(){
@@ -193,6 +209,10 @@ export default {
   },
   mounted(){  
     this.query()
+    window.addEventListener('click',this.listenerChangeFlag)
+  },
+  beforeDestroy() { 
+     window.removeEventListener('click',this.listenerChangeFlag)
   },
   watch:{
     inputValue:{
@@ -228,6 +248,12 @@ export default {
     }
   },
   methods:{
+    listenerChangeFlag(e){
+      let nowClassName = e.target.className 
+      if("so trueSe"!=nowClassName){
+          this.blur()
+      }
+    },
     async gainTranslate(query){
         //  let {data:res} = await getTanslate(query);
         //  if(res&&res.translateResult[0][0]){
@@ -306,11 +332,11 @@ export default {
         this.placeholder="";
     },
     keydown(){
-          this.searchBgMode ="trueSe"
+        this.searchBgMode ="trueSe"
     },
     mouseleave(){
       // 离开并且非聚焦状态
-        if(this.focusVal == false){
+        if(this.focusVal == false){ 
           if (this.inputValue == null || this.inputValue == ''){
               this.placeholder="Search";
                this.searchBgMode ="glass-effect-se-simple"
@@ -370,19 +396,21 @@ export default {
           this.currentEngin=JSON.parse(engin);
       }
     },
-    blur(){//输入框离开焦点 
-       this.focusVal = false;
+    blur(){//输入框离开焦点  
+        this.focusVal = false;
         this.smartTipShow=false;
         this.mouseleave() 
-        this.$emit("blurs",true) 
-        
-        
+        this.$emit("blurs",true)  
+        this.opacityTime = 0
     },
     focus(){ 
-        this.smartTipShow=true;
-        this.searchedHisoryShow=true;
+        
         this.$emit("focus",true)
+        this.smartTipShow=true;
+        this.searchedHisoryShow=true; 
         this.focusVal = true;
+       this.mouseenter()
+       this.opacityTime = 1
     },
     recordSerchHistory(item1){//记录搜索历史
        let len=this.searchedHisory.length;
@@ -600,5 +628,9 @@ a:hover{
   width: 100px;
   color: white;
   padding: 0px 10px;
+}
+
+.transitions{
+  transition:all 0.5s
 }
 </style>

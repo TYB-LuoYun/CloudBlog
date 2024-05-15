@@ -3,7 +3,7 @@
    <div class=""   >  
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
-                 <Search @focus="focus" @blurs="blurs"></Search>
+                 <Search @focus="focus" @blurs="blurs" :time="simpleTime"></Search>
             </ClientOnly>
 
              <div v-if="!inputFocus">
