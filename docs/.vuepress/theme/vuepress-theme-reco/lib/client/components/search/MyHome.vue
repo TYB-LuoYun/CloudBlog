@@ -1,8 +1,9 @@
 <template>
-   <div class="all-page" :style="{'backgroundImage':'url('+bg+')'}" >  
+   <div   :class="{'back-base':true,'back-focus':!blur,'back-blur':blur}" :style="{'backgroundImage':'url('+bg+')' }" >  </div>
+   <div class=""   >  
          <div style="width:30%;margin:auto;margin-top: 20vh;">
             <ClientOnly>
-                 <Search @focus="focus"></Search>
+                 <Search @focus="focus" @blurs="blurs"></Search>
             </ClientOnly>
 
              <div v-if="!inputFocus">
@@ -46,7 +47,8 @@ import axios from 'axios'
 export default {
     components: { Search  },
     data(){
-      return {
+      return {  
+         blur:true,
          dynamicComponent: null,
          bg:'https://pic.netbian.com/uploads/allimg/230813/221347-16919360279c09.jpg',
          simpleTime:null,
@@ -100,6 +102,8 @@ export default {
       
       
     },
+    computed:{ 
+    },
     methods:{
       convertImageToDataURL() {
           
@@ -128,8 +132,13 @@ export default {
          }
          this.word = this.words[index]
       },
-      focus(val){
-         this.inputFocus = val
+      blurs(val){  
+         this.blur = true;   
+         this.inputFocus = false
+      },
+      focus(val){  
+         this.blur =  false;
+         this.inputFocus = true
       },
       initTime() {
       let timer1 = setTimeout(() => {
@@ -226,12 +235,33 @@ export default {
   /* background-color:#EEF2F5;  */
 }
 
+.back-focus{ 
+  filter: blur(10px); 
+  transform: scale(1.2);
+ }
+
+ .back-base{
+   background-color:rgba(30,30,30,1);
+  position: fixed;   
+  top:0;
+  width:100%;
+  height:100%;
+  z-index:-999;
+  background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size:cover;
+  transition: all 0.4s
+ }
  
- 
- 
+ .back-blur{ 
+  /* background-color: red; */
+  filter: none; 
+  transform: scale(1);
+ }
  
 .all-page{
-   background-color:rgba(30,30,30,1);
+  background-color:rgba(30,30,30,1);
   position: fixed;   
   width:100%;
   height:100%;

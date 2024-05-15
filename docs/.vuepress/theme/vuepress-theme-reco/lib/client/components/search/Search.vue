@@ -137,6 +137,7 @@ export default {
       // 搜索历史相关
       searchedHisory:[],
       searchingHistory:[],
+      focusVal:false,
       // 翻译
       translate:'',
       searchBgMode:"glass-effect-se-simple",
@@ -222,8 +223,7 @@ export default {
         },deep:true,immediate:true
     },
     smartTipShow:{
-      handler(newval,oldval){
-         this.$emit("focus",newval)
+      handler(newval,oldval){ 
       },deep:true,immediate:false
     }
   },
@@ -310,25 +310,23 @@ export default {
     },
     mouseleave(){
       // 离开并且非聚焦状态
-        if(this.smartTipShow == false){
+        if(this.focusVal == false){
           if (this.inputValue == null || this.inputValue == ''){
               this.placeholder="Search";
                this.searchBgMode ="glass-effect-se-simple"
           }else{
-            this.searchBgMode ="glass-effect-se"
+                this.searchBgMode ="glass-effect-se"
           }
-         
         }else{
           if(this.inputValue == null || this.inputValue == ''){
-            this.searchBgMode ="glass-effect-se"
+            // this.searchBgMode ="glass-effect-se"
           }else  if((this.searchedHisory == null ||this.searchedHisory.length<=0 )&& (this.smartTipItems ==null|| this.smartTipItems.length<=0)){
-            this.searchBgMode ="glass-effect-se"
-          } 
-          
+            // this.searchBgMode ="glass-effect-se"
+          }  
         } 
         
          
-    },
+    }, 
     downPage(){
           console.log("颜色",  this.currentIndex + this.color.associateLiHover );
           this.isPage=true;
@@ -372,13 +370,19 @@ export default {
           this.currentEngin=JSON.parse(engin);
       }
     },
-    blur(){//输入框离开焦点
+    blur(){//输入框离开焦点 
+       this.focusVal = false;
         this.smartTipShow=false;
-        this.mouseleave()
+        this.mouseleave() 
+        this.$emit("blurs",true) 
+        
+        
     },
-    focus(){
+    focus(){ 
         this.smartTipShow=true;
         this.searchedHisoryShow=true;
+        this.$emit("focus",true)
+        this.focusVal = true;
     },
     recordSerchHistory(item1){//记录搜索历史
        let len=this.searchedHisory.length;
@@ -452,7 +456,7 @@ export default {
 // }
  
 .glass-effect-se-simple::placeholder {
-  color: white; /* 将 placeholder 文本颜色设置为白色 */
+   color: white; /* 将 placeholder 文本颜色设置为白色 */
    text-indent: 25px;
 }
 .glass-effect-se:hover::placeholder {
