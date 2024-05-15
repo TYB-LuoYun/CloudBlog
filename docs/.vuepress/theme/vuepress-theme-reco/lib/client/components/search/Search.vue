@@ -1,14 +1,15 @@
 <template>
-  <div id="search">
+  <div id="search" >
      <!-- 这是隐藏的获取关键词联想的框 -->
       <div>
           <input id="dataFromBd" type="text" style="display:none">
           <input id="dataFrominput" type="text" v-model="associateKey" style="display:none">
-      </div>
+      </div> 
       <div id="se" class="searchInput">
          <div class="row" style="position:relative">
            <div style="position:absolute;top:0;margin-top:-68px;width:100%; color:white;text-align:center;">
-             <h1 class="transitions" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1>
+             <!-- <h1 class="transitions" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1> -->
+             <h1 v-if="opacityTime == 1" class="animate__animated animate__zoomIn" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1>
            </div>
            <input id="wd" v-model="inputValue" 
            :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}"   @focus="focus()" @keydown="keydown" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
@@ -482,7 +483,13 @@ export default {
 //    background-color: rgba(255,255,255,0.8);
 //     position: relative;
 // }
- 
+ /* This only changes this particular animation duration */
+.animate__animated.animate__zoomIn {
+  --animate-duration: 0.4s;
+}
+.animate__animated.animate__fadeInDown {
+  --animate-duration: 0.4s;
+}
 .glass-effect-se-simple::placeholder {
    color: white; /* 将 placeholder 文本颜色设置为白色 */
    text-indent: 25px;
