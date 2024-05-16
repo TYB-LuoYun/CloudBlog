@@ -6,7 +6,7 @@
           <input id="dataFrominput" type="text" v-model="associateKey" style="display:none">
       </div> 
       <div id="se" class="searchInput">
-         <div class="row" style="position:relative">
+         <div class="row" style="position:relative; ">
            <div style="position:absolute;top:0;margin-top:-68px;width:100%; color:white;text-align:center;">
              <!-- <h1 class="transitions" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1> -->
              <h1 v-if="opacityTime == 1" class="animate__animated animate__zoomIn" :style="{'font-size':'36px','opacity':opacityTime}">{{time}}</h1>
@@ -14,6 +14,12 @@
            <input id="wd" v-model="inputValue" 
            :class="{'so':true,'glass-effect-se-simple':searchBgMode =='glass-effect-se-simple','glass-effect-se':searchBgMode =='glass-effect-se','trueSe':searchBgMode =='trueSe'}"   @focus="focus()" @keydown="keydown" @keyup.up="upPage()" @keyup.down="downPage()" @keydown.enter="search()" @mouseenter="mouseenter" @mouseleave="mouseleave"  type="text"  autocomplete="off"  :placeholder="placeholder">
            <i id="soso" v-if="searchBgMode !='glass-effect-se-simple'" style="position:relative;margin-left:-25px;cursor:default;color:#777;z-index: 999;" @click="search()" class="iconfont icon-sousuo "></i>
+           <!-- <div id="engin"  class="animate__animated animate__fadeIn" v-show="focusVal ==true" style="position:relative;margin-top: 0px;margin-left: 0px; width:20px;  ">
+                         <img  style="position:absolute;width:15px; top:-28px; left:5px" :src="currentEngin.img" alt="">
+                         <ul  id="engins" style="position:absolute;top:-30px;left:0px">
+                          <li @click="changeEngin(item)" v-for="(item,index) in engin">{{item.name}}</li>
+                        </ul>
+            </div> -->
         </div>
         <div class="row" :style="{
           'font-size': fontSize.associate + 'px',
@@ -24,12 +30,7 @@
             <div class="associate" v-show="smartTipShow"  >
                   <ul class="associate_ul" :style="{ 'background-color': color.associate }">
                     <!-- <li>
-                       <a id="engin"  style="position:relative">
-                         <img  style="width:14px;margin-top:-3px;margin-left:-5px" :src="currentEngin.img" alt="">
-                         <ul  id="engins">
-                          <li @click="changeEngin(item)" v-for="(item,index) in engin">{{item.name}}</li>
-                        </ul>
-                       </a>
+                       
                        <a style="margin-left:4px" @click="comesoon()" href="javascript:void(0)" >图片</a>
                        <a style="margin-left:1px" target="_blank"  :href="'https://video.tf/search/'+inputValue+'.shtml'">视频</a>
                        <a style="margin-left:1px" target="_blank"  :href="'http://www.iciba.com/'+inputValue" >翻译</a>
@@ -540,6 +541,7 @@ export default {
     box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
     border-radius: 3px;
     transition: all 0.5s;
+    // text-indent:20px;
 }
 
 
@@ -618,9 +620,11 @@ a:hover{
 .associate ul li:hover{
   background-color: rgba(255, 255, 255, 0.04);
 }
-
+#engin{
+  
+}
 #engin #engins{
-  display: none;
+  display:none;
  
   position:absolute;top:18px;left:-10px;background-color:rgba(0,0,0,0.9);
   /* background-color: red;
@@ -628,7 +632,7 @@ a:hover{
    z-index: 1999;
 }
 #engin:hover #engins{
-  display: block;
+  display:block;
 }
 #engin #engins li{
   cursor: default;
