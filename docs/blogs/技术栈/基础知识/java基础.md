@@ -61,11 +61,24 @@ mybatisPlus需要用到大量的反射，提前缓存了类的所有字段Lambda
 
 
 ## HashMap
-HashMap1.7和1.8的区别HashMap 1.7和1.8的区别
-1.7 头插法，数据结构：链表+数组
+数据结构： 哈希表 ，即数组+链表 / 红黑树 
+
+当我们往HashMap中put元素时，利用key的hashCode重新hash计算出当前对象的元素在数组中的下标
+
+存储时，如果出现hash值相同的key，此时有两种情况。
+a. 如果key相同，则覆盖原始值；
+b. 如果key不同（出现冲突），则将当前的key-value放入链表或红黑树中
+获取时，直接找到hash值对应的下标，在进一步判断key是否相同，从而找到对应值。
+   
 1.8尾插法，数据结构：链表+数组+红黑树
 ConcurrentHashMap  1.7是分段锁，用lock。1.8对每个node加锁，用synchronize+cas。
 1.8大体流程就是，如果table数组位置没值，用cas替换，如果有值，加锁插入。
+
+
+
+## HashSet 的实现原理？
+
+HashSet是基于HashMap实现的，HashSet底层使用HashMap来保存所有元素，因此HashSet的操作相对比较简单，相关HashSet的操作，基本上都是直接调用底层的HashMap的相关方法来完成，HashSet不允许有重复的值，并且元素是无序的
 ## ConcurrentHashMap
 保证并发，最重要的就是锁，但是锁会影响并发的效率。那么优化点就是，锁的粒度设计 
 jdk1.8 版本中，对 ConcurrentHashMap 做了优化，取消了分段锁的设计，取而代之的是通过 cas 操作和 synchronized 关键字来实现优化
