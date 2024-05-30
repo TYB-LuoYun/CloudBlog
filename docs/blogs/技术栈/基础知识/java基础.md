@@ -54,22 +54,46 @@ mybatisPlus需要用到大量的反射，提前缓存了类的所有字段Lambda
 - 使用Class.forName()方法
 - 使用ClassLoader的loadClass()方法
 
+## 说说集合体系
+Collection 单列集合 ，下有List,set,Queue 基本都继承了Iterator
+   - List:
+      - ArrayList：基于动态数组实现，支持随机访问，增删操作效率较低    -----> CopyOnWriteArrayList： 通过复制整个数组来实现写入的线程安全，适合读多写少的场景
+      - LinkedList：基于双向链表实现，支持快速的插入和删除操作，但访问效率较低
+   - Set 不允许存储重复元素
+      - HashSet：基于哈希表实现，插入和查找元素的速度较快，不保证顺序。
+      - TreeSet：基于红黑树实现，元素按照自然顺序进行排序或使用自定义的Comparator。
+   - Queue
+      - LinkedList：可作为队列使用。
+      - PriorityQueue：基于优先级堆实现，元素按照优先级进行排序。
+Map 双列映射集合
+   - HashMap：基于哈希表实现，键值对无序存储，查找速度较快。   ------>LinkedHashMap 哈希表 和 链表 结构 ,保证插入的顺序   ； ConcurrentSkipListMap基于跳表实现的线程安全的有序Map， 支持高并发写和访问 ；Collections.synchronizedList读写都需要加锁
+   - TreeMap：基于红黑树实现，按照键的自然顺序或自定义顺序存储。 
+   - HashTable： 使用了synchronized关键字来保证线程安全，效率低 ------> ConcurrentHashMap  线程安全 性能较高 cas 操作和 synchronized 关键字来实现优化
+
+
+
 ## ArrayList和LinkedList的区别
 数据结构：最大的差别就是底层的数据结构，一个是动态数组，一个是双向链表。
 随机访问性能：arraylist支持随机下标访问时间复杂度O（1），而linkedlist哪怕是随机访问，也得从头开始遍历，时间复杂度0（n）。
 插入和删除操作性能：arraylist在增删的时候，需要移动后方元素的位置，时间复杂度O（n），linkedlist在任意位置增删只需要修改节点指针，O（1）。
 
 
-## HashMap
+## HashMap 重点
 数据结构： 哈希表 ，即数组+链表 / 红黑树 
 
 当我们往HashMap中put元素时，利用key的hashCode重新hash计算出当前对象的元素在数组中的下标
 
 存储时，如果出现hash值相同的key，此时有两种情况。
 a. 如果key相同，则覆盖原始值；
-b. 如果key不同（出现冲突），则将当前的key-value放入链表或红黑树中
+b. 如果key不同（出现冲突），则将当前的key-value放入链表或红黑树中（当链表长度超过8时并且数组的长度大于等于64，会将链表转换为红黑树）
 获取时，直接找到hash值对应的下标，在进一步判断key是否相同，从而找到对应值。
-   
+    
+### 扩容 
+哈希表的读时间复杂度是O(1)，为了解决哈希冲突又往往采用链地址法解决，那这样时间复杂度愈发偏离O(1)了，此时进行扩容，其实是让哈希表分散的更均匀，解决性能不够好的问题
+当前存储的数量大于等于阈值或者当某个链表长度>=8，但是数组存储的结点数size() < 64时(不会转红黑树) ，就调用resize方法进行扩容，每次扩展的时候，新容量为旧容量的2倍；
+扩容操作是尾插，先插后判断是否需要扩容，扩展后元素的位置要么在原位置，要么移动到原位置 + 旧容量的位置。不需要像之前一样计算下标
+
+
 1.8尾插法，数据结构：链表+数组+红黑树
 ConcurrentHashMap  1.7是分段锁，用lock。1.8对每个node加锁，用synchronize+cas。
 1.8大体流程就是，如果table数组位置没值，用cas替换，如果有值，加锁插入。
