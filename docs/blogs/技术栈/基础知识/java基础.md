@@ -57,7 +57,7 @@ mybatisPlus需要用到大量的反射，提前缓存了类的所有字段Lambda
 ## 说说集合体系
 Collection 单列集合 ，下有List,set,Queue 基本都继承了Iterator
    - List:
-      - ArrayList：基于动态数组实现，支持随机访问，增删操作效率较低    -----> CopyOnWriteArrayList： 通过复制整个数组来实现写入的线程安全，适合读多写少的场景
+      - ArrayList：基于动态数组实现，支持随机访问，增删操作效率较低    -----> CopyOnWriteArrayList： 通过复制整个数组来实现写入的线程安全，适合读多写少的场景  ； Collections.synchronizedList读写都需要加锁
       - LinkedList：基于双向链表实现，支持快速的插入和删除操作，但访问效率较低
    - Set 不允许存储重复元素
       - HashSet：基于哈希表实现，插入和查找元素的速度较快，不保证顺序。
@@ -65,9 +65,10 @@ Collection 单列集合 ，下有List,set,Queue 基本都继承了Iterator
    - Queue
       - LinkedList：可作为队列使用。
       - PriorityQueue：基于优先级堆实现，元素按照优先级进行排序。
+      - 
 Map 双列映射集合
-   - HashMap：基于哈希表实现，键值对无序存储，查找速度较快。   ------>LinkedHashMap 哈希表 和 链表 结构 ,保证插入的顺序   ； ConcurrentSkipListMap基于跳表实现的线程安全的有序Map， 支持高并发写和访问 ；Collections.synchronizedList读写都需要加锁
-   - TreeMap：基于红黑树实现，按照键的自然顺序或自定义顺序存储。 
+   - HashMap：基于哈希表实现，键值对无序存储，查找速度较快。   ------>LinkedHashMap 哈希表 和 链表 结构 ,保证插入的顺序   ；
+   - TreeMap：基于红黑树实现，按照键的自然顺序或自定义顺序存储。 ------> ConcurrentSkipListMap基于跳表实现的线程安全的有序Map（元素按照键的自然顺序排列）,是TreeMap的并发实现， 支持高并发写和访问 ；
    - HashTable： 使用了synchronized关键字来保证线程安全，效率低 ------> ConcurrentHashMap  线程安全 性能较高 cas 操作和 synchronized 关键字来实现优化
 
 
