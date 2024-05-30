@@ -1,1 +1,0 @@
-import{_ as t,o as a,c as o,b as e,d as s}from"./app-ea0d6870.js";const c={},r=e("h1",{id:"八股文",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#八股文","aria-hidden":"true"},"#"),s(" 八股文")],-1),n=[r];function _(d,i){return a(),o("div",null,n)}const u=t(c,[["render",_],["__file","shujujiegou.html.vue"]]);export{u as default};
