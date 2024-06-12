@@ -10,11 +10,11 @@ categories:
  # 八股文
  ##  Redis 数据类型
  常用
- String:存储缓存信息
- List: 
- Hash:
- Set: 无序唯一的键值类型; 
- Sorted Set： 有序集合，比Set多了个score分值。场景:排行榜
+ String: 可以存储字符串、整数或浮点数，场景-缓存、计数器、分布式锁
+ List: 按照插入顺序存储一组有序的值， 可以在列表的头部或尾部添加或删除元素，如lpush，Lrange(返回列表中指定区间内的元素)，LPOP，场景-微信朋友圈点赞列表，要求按照点赞顺序显示点赞好友信息；粉丝关注列表 ；评论列表；消息队列(如用户发送的消息、任务分配)
+ Hash:键值对的集合(HSET) 场景: 购物车(客户id作为key，商品id作为field,购买数量作为value)，存储高频访问的用户资料， 存储商品详情，文章或新闻的阅读量统计
+ Set: 无序的唯一值的集合，支持对集合执行添加（SADD）、删除和集合间的交集(SINTER)、并集(SUNION)、差集(SDIFF)等操作;  场景: 去重、共同好友等
+ Sorted Set也叫Zset： 有序集合，比Set多了个score分值（ZADD key score1 member1）。场景:排行榜，聊天室活跃度统计，各类资源网站TOP10
 
 ## 缓存穿透/雪崩/击穿
 击穿:单key突然过期，大量请求击穿redis访问Db。 解决:加锁只放行 + 自动刷新 
@@ -44,10 +44,11 @@ redis使用IO多路复用简单来说就是，单线程处理多个客户端连�
 
 内存淘汰:
 noeviction(不驱逐) ： 默认策略，对于写请求直接返回错误，不进行淘汰。
-allkeys-lru(Least Recently Used): 最近一段时间没有或很少用到的优先淘汰
-allkeys-random: 从所有的key中随机淘汰。
-allkeys-lfu(Least Frequently Used)： ，即访问频率很少的被淘汰 ，是一种缓存置换算法，当缓存被占满，这个时候继续往缓存里面添加数据，就需要淘汰一部分老的数据
 volatile-ttl：越早过期的越优先被淘汰
+allkeys-random: 从所有的key中随机淘汰。
+
+allkeys-lru(Least Recently Used): 最近一段时间没有或很少用到的优先淘汰 
+allkeys-lfu(Least Frequently Used)： ，即访问频率很少的被淘汰 ，是一种缓存置换算法，当缓存被占满，这个时候继续往缓存里面添加数据，就需要淘汰一部分老的数据
 volatile-lfu：从`设置了过期时间`的key中使用近似LFU算法进行淘汰
 
 

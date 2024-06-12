@@ -20,3 +20,12 @@ categories:
 9.ViewReslover解析后返回具体的View给前端控制器DispatcherServlet
 10.DispatcherServlet将view进行渲染试图(即将模型数据填充到视图中)
 11.DispatcherServlet将页面响应给个用户 
+
+
+## 拦截器顺序问题
+当preHandle方法返回true时，拦截器会按照preHandle -> postHandle -> afterCompletion的顺序执行；
+多个拦截器顺序 @Order（int） int数越小，优先级越高
+
+## 拦截器过滤器区别
+过滤器使用filter实现，拦截的是request请求，粒度很大
+拦截器基于Java的jdk动态代实现的，实现HandlerInterceptor接口，粒度更小

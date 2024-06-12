@@ -7,6 +7,10 @@ categories:
  - 基础知识
 ---
  # 八股文  
+### websocket 协议
+HTTP是一种无状态的协议，每次请求都需要建立一个新的连接
+WebSocket是一种全双工的协议，有状态的双向连接，是持久连接，
+
 ### netty的线程模型？
 netty的线程模型就是经典的reactor模型，底层基于io多路复用（select，poll，epoll三种实现）。reactor模型又分为单线程，多线程，主从reactor。这个去看看具体描述。这几种模式在netty中都有可能会出现，主要看你代码怎么配置。
 
