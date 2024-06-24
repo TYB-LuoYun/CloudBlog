@@ -29,3 +29,27 @@ categories:
 ## 拦截器过滤器区别
 过滤器使用filter实现，拦截的是request请求，粒度很大
 拦截器基于Java的jdk动态代实现的，实现HandlerInterceptor接口，粒度更小
+
+
+## 拦截器过滤器的原理
+
+
+## mybatis plus 与 mybatis区别
+
+ 
+
+
+
+
+ 
+
+
+## mongdb 和 redis 区别
+
+
+## aop原理
+Spring AOP的实现基于Java的动态代理技术。当你配置一个Aspect（切面），Spring会为目标对象创建一个代理，这个代理会包含目标对象的方法，以及由Aspect定义的advice（通知）。
+
+
+
+
