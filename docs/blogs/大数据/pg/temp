@@ -1,0 +1,43 @@
+SELECT
+  COALESCE(abadata4.search_terms ,'') as "搜索词",
+  COALESCE(abadata4.cn_word ,'') as "翻译",
+  abadata4.search_frequency_rank as "搜索频率排名",
+  abadata4.date_range as  "日期范围",
+  COALESCE(abadata4.site ,'')  as  "站点",
+  COALESCE(abadata4.asin_clicked1 ,'')  as  "#1 已点击的 asIN",
+  COALESCE(abadata4.click_share1 ,'')  as  "#1 点击共享",
+  COALESCE(abadata4.transform_share1 ,'')  as  "#1 转化共享",
+  COALESCE(abadata4.asin_clicked2 ,'')  as  "#2 已点击的 asIN",
+  COALESCE(abadata4.click_share2 ,'')  as  "#2 点击共享",
+  COALESCE(abadata4.transform_share2 ,'')  as  "#2 转化共享",
+  COALESCE(abadata4.asin_clicked3 ,'')  as  "#3 已点击的 asIN",
+  COALESCE(abadata4.click_share3 ,'')  as  "#3 点击共享",
+  COALESCE(abadata4.transform_share3 ,'')  as  "#3 转化共享",
+  COALESCE(abadata4.brand1 ,'')  as  "1品牌",
+  COALESCE(abadata4.size1 ,'')  as  "1尺寸",
+  COALESCE(abadata4.color1 ,'')  as  "1颜色",
+  COALESCE(abadata4.brand2 ,'')  as  "2品牌",
+  COALESCE(abadata4.size2 ,'')  as  "2尺寸",
+  COALESCE(abadata4.color2 ,'')  as  "2颜色",
+  COALESCE(abadata4.brand3 ,'')  as  "3品牌",
+  COALESCE(abadata4.size3 ,'')  as  "3尺寸",
+  COALESCE(abadata4.color3 ,'')  as  "3颜色"
+FROM
+  aba_data abadata4  
+  WHERE (abadata4.search_terms LIKE CONCAT('%',<参数.搜索词>,'%')
+         OR abadata4.cn_word LIKE CONCAT('%',<参数.搜索词>,'%')
+      )
+  AND (     abadata4.brand1 LIKE CONCAT('%',<参数.品牌>,'%')
+	OR  abadata4.brand2 LIKE CONCAT('%',<参数.品牌>,'%')
+	OR  abadata4.brand3 LIKE CONCAT('%',<参数.品牌>,'%')
+	OR  <参数.品牌> = '')
+  AND (     abadata4.color1 LIKE CONCAT('%',<参数.颜色>,'%')
+	OR  abadata4.color2 LIKE CONCAT('%',<参数.颜色>,'%')
+	OR  abadata4.color3 LIKE CONCAT('%',<参数.颜色>,'%')
+	OR  <参数.颜色> = '')
+AND (       abadata4.size1 LIKE CONCAT('%',<参数.尺寸>,'%')
+	OR  abadata4.size2 LIKE CONCAT('%',<参数.尺寸>,'%')
+	OR  abadata4.size3 LIKE CONCAT('%',<参数.尺寸>,'%')
+	OR <参数.尺寸>='')
+
+LIMIT 100000
